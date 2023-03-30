@@ -1,5 +1,8 @@
 <template>
     <div class="register-container">
+        <span class="close-button" @click="close">
+            <i class="el-icon-close"></i>
+        </span>
         <div class="left-section"></div>
         <div class="right-section">
             <div class="logo"></div>
@@ -58,6 +61,9 @@ export default {
                     console.error(error);
                 });
         },
+        close() {
+            this.$router.push('/');
+        },
     },
 };
 </script>
@@ -98,6 +104,13 @@ export default {
         .comment {
             text-align: center;
         }
+    }
+    .close-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        cursor: pointer;
     }
 }
 </style>

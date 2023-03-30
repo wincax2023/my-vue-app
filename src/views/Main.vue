@@ -1,18 +1,17 @@
 <template>
     <div class="main-container">
-        <Main />
+        <Header />
     </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import { isMobile } from '../lib/util';
-import Main from './Main.vue';
+import Header from '../components/header/Header.vue';
 export default {
-    components: { Main },
+    components: { Header },
     data() {
         return {
-            isMobile: isMobile,
+
         };
     },
     computed: {
@@ -21,9 +20,13 @@ export default {
     watch: {},
     created() {},
     destroyed() {},
-    mounted() {},
+    mounted() {
+
+    },
     methods: {
         ...mapActions('app', ['setMenuIndex']),
+
+        
     },
 };
 </script>
@@ -32,7 +35,7 @@ export default {
 .main-container {
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    max-height: 100vh;
 }
 </style>
 
