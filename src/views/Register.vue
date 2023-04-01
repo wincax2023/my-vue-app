@@ -1,8 +1,8 @@
 <template>
     <div class="register-container">
-        <span class="close-button" @click="close">
+        <!-- <span class="close-button" @click="close">
             <i class="el-icon-close"></i>
-        </span>
+        </span> -->
         <div class="left-section"></div>
         <div class="right-section">
             <div class="logo"></div>

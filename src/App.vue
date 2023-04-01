@@ -1,16 +1,28 @@
 <template>
-    <div id="app">
-        <router-view> </router-view>
+    <div id="app" class="app-container">
+        <Header />
+        <div class="main">
+            <router-view> </router-view>
+        </div>
     </div>
 </template>
 
 <script>
+import Header from './components/header/Header.vue';
 export default {
     name: 'App',
-    components: {},
+    components: {Header},
 };
 </script>
-
+<style lang="less" scoped>
+.app-container {
+    .main {
+        width: 100%;
+        height: calc(100% - 60px);
+        position: absolute;
+    }
+}
+</style>
 <style>
 body {
     height: 100%;
@@ -38,6 +50,7 @@ body {
     height: 100%;
     width: 100%;
     max-width: 100vw;
+    background: #212236;
 }
 * {
     box-sizing: border-box;

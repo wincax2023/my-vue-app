@@ -1,14 +1,17 @@
 <template>
     <div class="main-container">
-        <Header />
+        <!-- <Header /> -->
+        <Search />
     </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import Header from '../components/header/Header.vue';
+// import Header from '../components/header/Header.vue';
+import Search from '../components/search/Search.vue';
+
 export default {
-    components: { Header },
+    components: { Search },
     data() {
         return {
 

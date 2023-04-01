@@ -1,8 +1,10 @@
-// import './theme/index.css';
+import './theme/index.css';
 import ElementUI from 'element-ui';
 import Vue from 'vue';
+import moment from 'moment';
+moment.locale('zh-cn')
 
-import 'element-ui/lib/theme-chalk/index.css';
+// import 'element-ui/lib/theme-chalk/index.css';
 
 import App from './App.vue';
 import store from './store';

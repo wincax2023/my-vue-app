@@ -1,6 +1,6 @@
 <template>
     <div class="header-container">
-        <div class="logo-section">
+        <div class="logo-section" @click="main">
             <img src="../../assets/img/logo.png" alt="" />
             <span class="text">PromptSpell</span>
         </div>
@@ -23,33 +23,59 @@
             <span class="button" @click="search">
                 <i class="el-icon-search"></i>
             </span>
-            <span class="button" @click="login">登录</span>
-            <el-button type="primary" class="button" @click="register">创建账号</el-button>
+            <span  v-if="isLogin" class="button-wrapper">
+                <img class="avatar" :src="avatar" alt=""  @click="profile" />
+                <el-button type="primary" class="button" @click="upload">上传</el-button>
+            </span>
+            <span v-else class="button-wrapper">
+                <el-button type="text" class="button" @click="login">登录</el-button>
+                <el-button type="primary" class="button" @click="register">创建账号</el-button>
+            </span>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import { login } from '../../api/api';
 
 export default {
     components: {  },
     data() {
         return {
-            activeIndex: 0
+            activeIndex: '0',
+            isLogin: false,
+            avatar: require('../../assets/img/profile/avatar.png'),
         };
     },
     computed: {
-        // ...mapState("app", ["curTab", "clientHeight"]),
+        ...mapState("app", ["userInfo"]),
     },
-    watch: {},
+    watch: {
+        userInfo(newValue) {
+            if (newValue && newValue.avatar) {
+                this.avatar = newValue.avatar;
+            } 
+        }
+    },
     created() {},
     destroyed() {},
     mounted() {
-        
+        this.isLogin = localStorage.getItem("prompt-token") ? true : false;
+        window.addEventListener("storage", () => {
+            const tocken = localStorage.getItem("prompt-token");
+            if (tocken) {
+                this.isLogin = true;
+            } else {
+                this.isLogin = false;
+            }
+        });
+        if (this.isLogin) {
+            this.doLogin()
+        }
     },
     methods: {
-        ...mapActions('app', ['setMenuIndex']),
+        ...mapActions('app', ['setUserInfo']),
 
         handleSelect(key, keyPath) {
             console.log(key, keyPath);
@@ -62,7 +88,34 @@ export default {
         },
         register() {
             this.$router.push('/register');
-        }
+        },
+        main() {
+            this.$router.push('/');
+        },
+        profile() {
+            this.$router.push('/profile');
+        },
+        upload() {},
+        doLogin() {
+            const password = localStorage.getItem("prompt-password")
+            const email = localStorage.getItem("prompt-email")
+            login(email, password)
+            .then(resp => {
+                if (resp.data && resp.data.data) {
+                    // token
+                    localStorage.setItem(
+                        'prompt-token',
+                        resp.data.token
+                    );
+                    
+                    this.setUserInfo(resp.data.data);
+                }
+                console.warn('login resp', resp);
+            })
+            .catch(err => {
+                console.error('login err', err);
+            });
+        },
     },
 };
 </script>
@@ -83,6 +136,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
 
         img {
             width: 34px;
@@ -101,6 +155,13 @@ export default {
         .button {
             cursor: pointer;
             margin: 0 10px;
+            vertical-align: middle;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+            cursor: pointer;
         }
     }
 
