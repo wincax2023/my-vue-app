@@ -140,6 +140,10 @@ export default {
                                 // nickname: 'jackma';
                                 // regTime: '2023-03-28 22:37:51';
                                 // uid: '6422fbbf8560e3c8f2b9b8e7';
+                                this.$nextTick(() => {
+                                    this.$router.push('/');
+                                })
+                                
                             }
                             console.warn('login resp', resp);
                         })

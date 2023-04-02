@@ -53,8 +53,13 @@ export default {
     },
     watch: {
         userInfo(newValue) {
+            if (newValue) {
+                this.isLogin = localStorage.getItem("prompt-token") ? true : false;
+                console.warn('header', this.isLogin);
+            }
             if (newValue && newValue.avatar) {
                 this.avatar = newValue.avatar;
+                
             } 
         }
     },
@@ -62,8 +67,10 @@ export default {
     destroyed() {},
     mounted() {
         this.isLogin = localStorage.getItem("prompt-token") ? true : false;
+        console.warn('header', this.isLogin);
         window.addEventListener("storage", () => {
             const tocken = localStorage.getItem("prompt-token");
+            console.warn('tocken', tocken);
             if (tocken) {
                 this.isLogin = true;
             } else {
