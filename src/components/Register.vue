@@ -143,12 +143,14 @@ export default {
                         .then(resp => {
                             if (resp.data && resp.data.data) {
                                 // token
-                                localStorage.setItem(
-                                    'prompt-token',
-                                    resp.data.token
-                                );
+                                // localStorage.setItem(
+                                //     'prompt-token',
+                                //     resp.data.token
+                                // );
+                                // email
+                                localStorage.setItem('prompt-email', email);
 
-                                this.setUserInfo(resp.data.data);
+                                // this.setUserInfo(resp.data.data);
 
                                 // UID: '6422fbbf8560e3c8f2b9b8e7';
                                 // avatar: 'https://img-1257472583.cos.ap-hongkong.myqcloud.com/%E5%A4%B4%E5%83%8F/default.png';
@@ -160,6 +162,9 @@ export default {
                                 // ip: '114.86.73.99';
                                 // nickname: 'jackma';
                                 // regTime: '2023-03-28 22:37:51';
+                                this.$nextTick(() => {
+                                    this.$router.push('/login');
+                                })
                             }
                             console.warn('register resp', resp);
                         })
