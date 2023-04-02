@@ -93,7 +93,7 @@ export default {
             this.$router.push('/');
         },
         profile() {
-            this.$router.push('/profile');
+            this.$router.push(`/profile/${this.userInfo.uid}`);
         },
         upload() {},
         doLogin() {

@@ -5,8 +5,8 @@
             <p class="avatar-wrapper">
                 <img class="avatar" :src="profile.avatar" alt="" />
                 <span class="action-wrapper">
-                <el-button type="text" class="button" @click="edit"><i class="el-icon-edit"></i>编辑</el-button>
-                <el-button type="text" class="button" @click="mark"><i class="el-icon-star-on"></i>收藏</el-button>
+                <el-button v-if="isMine" type="text" class="button" @click="edit"><i class="el-icon-edit"></i>编辑</el-button>
+                <el-button type="text" class="button" @click="mark"><i class="el-icon-star-on"></i>关注</el-button>
             </span>
             </p>
             
@@ -17,18 +17,20 @@
                 <span class="data">加入时间：{{getJoinTime()}}</span>
             </p>
             <!-- 介绍自己 -->
+            <p>
+                <el-button v-if="!isMine" type="primary" class="button" @click="mark">关注</el-button>
+            </p>
             
-            <el-button v-if="!isEdit" type="text" class="button" @click="introduce">介绍自己</el-button>
+            <el-button v-if="!isEdit && isMine" type="text" class="button" @click="introduce">介绍自己</el-button>
             <ProfileEdit v-if="isEdit" @cancel="cancelEdit" />
             <p v-else class="data-wrapper">
                 <span class="data">提示 : 0</span>
                 <span class="data">喜欢 : 0</span>
                 <span class="data">关注 : 0</span>
-                
             </p>
             
         </div>
-        
+        <PromptList v-if="!isEdit" />
     </div>
 </template>
 
@@ -36,14 +38,16 @@
 import moment from 'moment';
 import { mapState, mapActions } from 'vuex';
 import ProfileEdit from './ProfileEdit.vue';
+import PromptList from './PromptList.vue';
 export default {
-    components: {ProfileEdit  },
+    components: {ProfileEdit , PromptList },
     data() {
         return {
             profile: {
                 avatar: require('../../assets/img/profile/avatar.png'),
             },
-            isEdit: false
+            isEdit: false,
+            isMine: false
         };
     },
     computed: {
@@ -53,6 +57,7 @@ export default {
         userInfo(newValue) {
             if (newValue) {
                 this.profile = Object.assign({}, this.profile, newValue);
+                this.isMine = this.$route.params.id === newValue.uid
                 console.warn('profile ', this.profile, newValue);
             } 
         }
@@ -61,6 +66,7 @@ export default {
     destroyed() {},
     mounted() {
         this.profile = Object.assign({}, this.profile, this.userInfo );
+        this.isMine = this.$route.params.id === this.userInfo.uid
     },
     methods: {
         ...mapActions('app', ['setMenuIndex']),

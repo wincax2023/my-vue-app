@@ -102,14 +102,15 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .banner {
         width: 100%;
-        height: 100%;
+        position: absolute;
+        top: 0;
+        height: 329px;
     }
 
     .content {
@@ -117,7 +118,7 @@ export default {
         top: 0;
         left: auto;
         width: fit-content;
-        height: 100%;
+        height: 329px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -125,6 +126,7 @@ export default {
         text-align: center;
         padding: 0 20px;
         box-sizing: border-box;
+        z-index: 1;
 
 
         h2 {
@@ -174,7 +176,8 @@ export default {
 
 }
 .search-container:before {
-    min-height: var(--header-height);
+    // min-height: var(--header-height);
+    height: 329px;
     content: '';
     position: absolute;
     top: 0;

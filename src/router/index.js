@@ -23,7 +23,8 @@ const routes = [
         meta: { title: 'Login' },
     },
     {
-        path: '/profile',
+        // { path: '/users/:id', component: User },
+        path: '/profile/:id',
         name: 'Profile',
         component: () => import('../views/Profile.vue'),
         meta: { title: 'Profile' },

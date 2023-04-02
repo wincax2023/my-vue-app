@@ -9,6 +9,7 @@
 
 <script>
 import Header from './components/header/Header.vue';
+
 export default {
     name: 'App',
     components: {Header},
@@ -29,7 +30,6 @@ body {
     width: 100%;
     padding: 0;
     margin: 0;
-    overflow: hidden;
     overscroll-behavior: none;
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -39,7 +39,9 @@ body {
     padding-top: env(safe-area-inset-top); */
     box-sizing: border-box;
     /* min-width: 1024px; */
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+        background-color: #222236;
 }
 #app {
     font-family: Microsoft YaHei, Avenir, Helvetica, Arial, sans-serif;
