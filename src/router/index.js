@@ -8,7 +8,7 @@ const routes = [
         path: '/',
         name: 'Main',
         component: () => import('../views/index.vue'),
-        meta: { title: '帝派' },
+        meta: { title: 'PromptSpell' },
     },
     {
         path: '/register',
@@ -56,7 +56,7 @@ VueRouter.prototype.replace = function replace(location, onResolve, onReject) {
     return originalReplace.call(this, location).catch(err => err);
 };
 
-const DEFAULT_TITLE = '帝派';
+const DEFAULT_TITLE = 'PromptSpell';
 router.afterEach(to => {
     // Use next tick to handle router history correctly
     // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
