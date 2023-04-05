@@ -193,6 +193,7 @@ export default {
             value = value.replace(/^\./g, '') // 小数点不能在开头
             value = value.replace(/\.{2,}/g, '.') // 不能出现多个小数点
             value = value.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.') // 保证小数点只有一个
+            //eslint-disable-next-line
             value = value.replace(/^(\-)*(\d+)\.(\d{0,2}).*$/, '$1$2.$3') // 限制小数点后最多只能有两位小数
             this.ruleForm.price = value
         },
