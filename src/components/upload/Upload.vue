@@ -45,14 +45,26 @@
             <el-form-item prop="title">
                 <p><span>上传</span><span class="discription">图片上传由该提示生成的示例图，无拼接或编辑，一次最多上传9张</span></p>
                 <div class="upload-wrapper">
-                        <div
+                        <!-- <div
                             class="upload-box"
                             v-for="(item, index) in imageList"
                             :key="index"
                             @click="selectImage(item)">
                             <img v-if="item.url" :src="item.url" alt="">
                             <i v-else class="el-icon-camera-solid"></i>
-                        </div>
+                        </div> -->
+                        <el-upload
+                            class="upload-box"
+                            v-for="(item, index) in imageList"
+                            :key="index"
+                            action=""
+                            :show-file-list="false"
+                            :auto-upload="false"
+                            accept="image/*"
+                            :on-change="file => beforeAvatarUpload(file, index)">
+                            <img v-if="item.url" :src="item.url">
+                            <i v-else class="el-icon-camera-solid"></i>
+                        </el-upload>
                 </div>
             </el-form-item>
             <el-form-item>
@@ -123,6 +135,7 @@ export default {
             ],
             dialogImageUrl: '',
             dialogVisible: false,
+            showUpload:[true,true,true,true,true,true,true,true,true],
             imageList: [
                 {
                     id: 1,
@@ -202,6 +215,26 @@ export default {
                 this.dialogVisible = true;
             }
         },
+        toggleUpload(index) {
+            this.showUpload[index] = !this.showUpload[index]
+        },
+        handleAvatarSuccess(res, file) {
+            this.imageUrl = URL.createObjectURL(file.raw);
+        },
+        beforeAvatarUpload(file, index) {
+            this.imageList[index].url = URL.createObjectURL(file.raw);
+            // const isJPG = file.type === 'image/jpeg';
+            // const isLt2M = file.size / 1024 / 1024 < 2;
+
+            // if (!isJPG) {
+            //     this.$message.error('上传头像图片只能是 JPG 格式!');
+            // }
+            // if (!isLt2M) {
+            //     this.$message.error('上传头像图片大小不能超过 2MB!');
+            // }
+            // return isJPG && isLt2M;
+            return false
+        },
         submit() {
             this.$refs['ruleForm'].validate(valid => {
                 if (valid) {
@@ -267,7 +300,8 @@ export default {
 
                 img {
                     width: 100%;
-                    height: 100%;}
+                    height: 100%;
+                }
             }
         }
 
@@ -277,6 +311,10 @@ export default {
 
         .price-unit {
             margin-left: 10px;
+        }
+
+        .hideUpload > div {
+            display: none;
         }
         
     }
@@ -300,6 +338,14 @@ export default {
     }
     .el-radio-group {
         width: 100%;
+    }
+
+    .el-upload {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>
