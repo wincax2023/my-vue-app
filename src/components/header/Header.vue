@@ -102,7 +102,9 @@ export default {
         profile() {
             this.$router.push(`/profile/${this.userInfo.uid}`);
         },
-        upload() {},
+        upload() {
+            this.$router.push('/upload');
+        },
         doLogin() {
             const password = localStorage.getItem("prompt-password")
             const email = localStorage.getItem("prompt-email")
