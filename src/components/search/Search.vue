@@ -80,7 +80,8 @@ export default {
         onSearch() {
             this.$refs['ruleForm'].validate(valid => {
                 if (valid) {
-                    // request search
+                    // /marketplace?searchQuery=demo&sortBy=score&time=all&model=midjourney
+                    this.$router.push(`/marketplace?searchQuery=${this.ruleForm.search}`);
                     
                 } else {
                     console.log('error submit!!');

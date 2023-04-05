@@ -34,6 +34,13 @@ const routes = [
         component: () => import('../views/Upload.vue'),
         meta: { title: 'Upload' },
     },
+    {
+        path: '/marketplace',
+        name: 'Marketplace',
+        component: () => import('../views/Marketplace.vue'),
+        meta: { title: 'Marketplace' },
+        // /marketplace?searchQuery=demo&sortBy=score&time=all&model=midjourney
+    },
 ];
 
 const router = new VueRouter({
