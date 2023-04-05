@@ -33,13 +33,14 @@
                     resize="none">
                 </el-input>
             </el-form-item>
-            <el-form-item prop="price">
+            <el-form-item prop="price" ref="priceInput">
                 <p><span>价格</span><span class="discription">你认为这个提示的价格应该是多少？</span></p>
-                <el-radio-group v-model="ruleForm.priceType">
+                <el-radio-group v-model="priceType" @input="priceTypeChange">
                     <el-radio label="免费"></el-radio>
                     <el-radio label="收费"></el-radio>
                 </el-radio-group>
-                <el-input v-if="ruleForm.priceType === '收费'" v-model="ruleForm.price" placeholder="10.00元"></el-input> 
+                <el-input v-if="priceType === '收费'" v-model="ruleForm.price" placeholder="10.00" class="price-input" @input="priceChange" ></el-input> 
+                <span v-if="priceType === '收费'" class="price-unit">元</span>
             </el-form-item>
             <el-form-item prop="title">
                 <p><span>上传</span><span class="discription">图片上传由该提示生成的示例图，无拼接或编辑，一次最多上传9张</span></p>
@@ -68,7 +69,6 @@
 
 <script>
 
-
 export default {
     components: {  },
     props: {
@@ -76,14 +76,13 @@ export default {
     },
     data() {
         return {
+            priceType: '收费',
             ruleForm: {
                 model: '',
                 title: '',
                 desc: '',
                 tips: '',
                 price: '',
-                priceType: '收费',
-                
             },
             rules: {
                 model: [
@@ -168,7 +167,7 @@ export default {
         
     },
     watch: {
-        
+       
     },
     created() {},
     destroyed() {},
@@ -176,6 +175,19 @@ export default {
         
     },
     methods: {
+        priceChange(value) {
+            value = value.replace(/[^\d.]/g, '') // 只保留数字和小数点
+            value = value.replace(/^\./g, '') // 小数点不能在开头
+            value = value.replace(/\.{2,}/g, '.') // 不能出现多个小数点
+            value = value.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.') // 保证小数点只有一个
+            value = value.replace(/^(\-)*(\d+)\.(\d{0,2}).*$/, '$1$2.$3') // 限制小数点后最多只能有两位小数
+            this.ruleForm.price = value
+        },
+        priceTypeChange(value) {
+            if (value === '免费') {
+                this.$refs.priceInput.clearValidate()
+            }
+        },
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
@@ -201,6 +213,7 @@ export default {
             });
            
         },
+        
 
     },
 };
@@ -257,6 +270,14 @@ export default {
                     height: 100%;}
             }
         }
+
+        .price-input {
+            width: 135px;
+        }
+
+        .price-unit {
+            margin-left: 10px;
+        }
         
     }
 }
@@ -276,6 +297,9 @@ export default {
         background-color: #454566;
         border: 1px dashed #454566;
         color: #454566;
+    }
+    .el-radio-group {
+        width: 100%;
     }
 }
 </style>
