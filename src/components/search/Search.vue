@@ -26,16 +26,16 @@
             <div class="trending-searches">
                 <span class="d-lg-inline-block d-none">Search by model</span>
 
-                <a class="model-selection-button mx-1 " href="/stable-diffusion-prompts">
+                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=stable-diffusion`">
                     <i class="el-icon-search"></i> Stable Diffusion
                 </a>      
-                <a class="model-selection-button mx-1 " href="/midjourney-prompts">
+                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=midjourney`">
                     <i class="el-icon-search"></i> Midjourney
                 </a>      
-                <a class="model-selection-button mx-1 " href="/dall-e-prompts">
+                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=dall-e`">
                     <i class="el-icon-search"></i> DALL-E
                 </a>      
-                <a class="model-selection-button mx-1 " href="/chatgpt-prompts">
+                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=chatgpt`">
                     <i class="el-icon-search"></i> ChatGPT
                 </a>  
             </div>
@@ -72,7 +72,7 @@ export default {
     created() {},
     destroyed() {},
     mounted() {
-        
+        this.ruleForm.search = this.$route.query.searchQuery
     },
     methods: {
         ...mapActions('app', ['setMenuIndex']),

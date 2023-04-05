@@ -27,7 +27,7 @@ export default {
     created() {},
     destroyed() {},
     mounted() {
-        this.searchQuery = this.$route.params.searchQuery
+        this.searchQuery = this.$route.query.searchQuery
     },
     methods: {
         ...mapActions('app', ['setMenuIndex']),

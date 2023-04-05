@@ -20,6 +20,7 @@
 <script>
 import { mapActions } from 'vuex';
 import {searchFilter} from '../../mock/filter.js';
+import {modelMap, sortByMap} from '../../lib/constant.js';
 export default {
     components: {  },
     data() {
@@ -35,15 +36,19 @@ export default {
     created() {},
     destroyed() {},
     mounted() {
-        
+        const sort = sortByMap[this.$route.query.sortBy] || '关联'
+        this.checkboxGroup[1] = [sort]
+        const model = modelMap[this.$route.query.model] || '全部'
+        this.checkboxGroup[2] = [model]
+        const tags = this.$route.query.tags || '全部'
+        this.checkboxGroup[3] = [tags]
     },
     methods: {
         ...mapActions('app', ['setMenuIndex']),
 
         onSelect(id, name) {
             this.checkboxGroup[id] = [name];
-
-
+            this.$emit('onSelect', this.checkboxGroup)
         },
         clear() {
             this.checkboxGroup = {1: ['关联'], 2: ['全部'], 3: ['全部']}

@@ -5,19 +5,24 @@ export const searchFilter = [
         children: [
             {
                 id:1,
-                name: '关联'
+                name: '关联',
+                value: 'relevance'
+
             },
             {
                 id:2,
-                name: '最热门'
+                name: '最热门',
+                value: 'hotness'
             },
             {
                 id:3,
-                name: '顶部'
+                name: '评分',
+                value: 'score'
             },
             {
                 id:4,
-                name: '最新'
+                name: '最新',
+                value: 'created'
             }
         ]
     },
@@ -27,27 +32,33 @@ export const searchFilter = [
         children: [
             {
                 id:1,
-                name: '全部'
+                name: '全部',
+                value: 'all'
             },
             {
                 id:2,
-                name: '达尔.厄'
+                name: '达尔.厄',
+                value: 'dall-e'
             },
             {
                 id:3,
-                name: '中途'
+                name: '中途',
+                value: 'midjourney'
             },
             {
                 id:4,
-                name: '通用技术'
+                name: '通用技术',
+                value: 'gpt'
             },
             {
                 id:5,
-                name: '提示库'
+                name: '提示库',
+                value: 'prompt-base'
             },
             {
                 id:6,
-                name: '稳定扩散'
+                name: '稳定扩散',
+                value: 'stable-diffusion'
             },
             
         ]
@@ -58,15 +69,18 @@ export const searchFilter = [
         children: [
             {
                 id:1,
-                name: '全部'
+                name: '全部',
+                value: '全部'
             },
             {
                 id:2,
-                name: '3D'
+                name: '3D',
+                value: '3D'
             },
             {
                 id:3,
-                name: '配饰'
+                name: '配饰',
+                value: 'accessories'
             },
             {
                 id:4,
