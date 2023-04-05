@@ -22,24 +22,24 @@
                     resize="none">
                 </el-input>
             </el-form-item>
-            <el-form-item prop="prompt">
+            <el-form-item prop="tips">
                 <p><span>图片提示</span><span class="discription">复制 Midijourney的提示到这里</span></p>
                 <el-input 
                     type="textarea" 
-                    v-model="ruleForm.desc"             
+                    v-model="ruleForm.tips"             
                     :rows="4"
                     :maxRows="6"
                     placeholder="china, assian, handsome,8K,29,flight suit,black hat,IT man, frontal shot,ultra detailed, ultra realistic,85mm lens,f/1.8,accent"
                     resize="none">
                 </el-input>
             </el-form-item>
-            <el-form-item prop="title">
+            <el-form-item prop="price">
                 <p><span>价格</span><span class="discription">你认为这个提示的价格应该是多少？</span></p>
                 <el-radio-group v-model="ruleForm.priceType">
                     <el-radio label="免费"></el-radio>
                     <el-radio label="收费"></el-radio>
                 </el-radio-group>
-                <el-input v-if="ruleForm.priceType === '收费'" v-model="ruleForm.title" placeholder="10.00元"></el-input> 
+                <el-input v-if="ruleForm.priceType === '收费'" v-model="ruleForm.price" placeholder="10.00元"></el-input> 
             </el-form-item>
             <el-form-item prop="title">
                 <p><span>上传</span><span class="discription">图片上传由该提示生成的示例图，无拼接或编辑，一次最多上传9张</span></p>
@@ -53,6 +53,11 @@
                             <i v-else class="el-icon-camera-solid"></i>
                         </div>
                 </div>
+            </el-form-item>
+            <el-form-item>
+                <el-button class="button" type="primary" @click="submit('ruleForm')">
+                    提交
+                </el-button>
             </el-form-item>
         </el-form>
         <el-dialog :visible.sync="dialogVisible">
@@ -75,11 +80,15 @@ export default {
                 model: '',
                 title: '',
                 desc: '',
+                tips: '',
                 price: '',
                 priceType: '收费',
                 
             },
             rules: {
+                model: [
+                    { required: true, message: '请选择模型', trigger: 'blur' },
+                ],
                 title: [
                     { required: true, message: '请输入标题', trigger: 'blur' },
                     { min: 3, max: 100, message: '长度在 3 到 100 个字符', trigger: 'blur' }
@@ -89,7 +98,11 @@ export default {
                 ],
                 desc: [
                     { required: true, message: '请输入描述', trigger: 'blur' },
-                    { min: 8, max: 1024, message: '长度在 3 到 1024 个字符', trigger: 'blur' }
+                    { min: 8, max: 1024, message: '长度在 8 到 1024 个字符', trigger: 'blur' }
+                ],
+                tips: [
+                    { required: true, message: '请输入图片提示', trigger: 'blur' },
+                    { min: 8, max: 1024, message: '长度在 8 到 1024 个字符', trigger: 'blur' }
                 ],
                 price: [
                     { required: true, message: '请输入价格', trigger: 'blur' },
@@ -118,35 +131,35 @@ export default {
                 },
                 {
                     id: 2,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 3,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 4,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 5,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 6,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 7,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 8,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 },
                 {
                     id: 9,
-                    url: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+                    url: ''
                 }
             ]
         };
@@ -176,6 +189,17 @@ export default {
                 this.dialogImageUrl = item.url;
                 this.dialogVisible = true;
             }
+        },
+        submit() {
+            this.$refs['ruleForm'].validate(valid => {
+                if (valid) {
+                    //
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+           
         },
 
     },
