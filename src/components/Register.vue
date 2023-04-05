@@ -50,7 +50,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { register } from '../api/api';
+import { register, login } from '../api/api';
 export default {
     // 组件选项
     components: {},
@@ -150,7 +150,7 @@ export default {
                                 // email
                                 localStorage.setItem('prompt-email', email);
 
-                                // this.setUserInfo(resp.data.data);
+                                this.setUserInfo(resp.data.data);
 
                                 // UID: '6422fbbf8560e3c8f2b9b8e7';
                                 // avatar: 'https://img-1257472583.cos.ap-hongkong.myqcloud.com/%E5%A4%B4%E5%83%8F/default.png';
@@ -162,9 +162,12 @@ export default {
                                 // ip: '114.86.73.99';
                                 // nickname: 'jackma';
                                 // regTime: '2023-03-28 22:37:51';
+                                this.login(email, password)
                                 this.$nextTick(() => {
-                                    this.$router.push('/login');
+                                    // this.$router.push('/login');
+                                    this.$router.push('/');
                                 })
+                               
                             }
                             console.warn('register resp', resp);
                         })
@@ -179,6 +182,23 @@ export default {
             // 检查输入的邮箱和密码是否正确
             // 如果需要，检查验证码是否正确
             // 如果验证成功，将用户信息存储在localStorage中，然后导航到其他页面
+        },
+        login(email, password) {
+            login(email, password)
+                        .then(resp => {
+                            if (resp.data && resp.data.data) {
+                                // token
+                                localStorage.setItem(
+                                    'prompt-token',
+                                    resp.data.token
+                                );
+                                this.setUserInfo(resp.data.data);
+                            }
+                            console.warn('login resp', resp);
+                        })
+                        .catch(err => {
+                            console.error('login err', err);
+                        });
         },
     },
 };

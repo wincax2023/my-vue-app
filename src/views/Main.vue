@@ -5,6 +5,7 @@
         <!-- <audio controls>
                 <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
         </audio> -->
+        <Classification />
         <div class="prompt-list-wrapper">
             <PromptList type="Featured Prompts" />
             <PromptList type="Hottest Prompts" />
@@ -18,9 +19,10 @@
 import { mapActions } from 'vuex';
 // import Header from '../components/header/Header.vue';
 import Search from '../components/search/Search.vue';
+import Classification from '../components/classification/Classification.vue';
 import PromptList from '../components/prompt/PromptList.vue';
 export default {
-    components: { Search , PromptList},
+    components: { Search , PromptList, Classification},
     data() {
         return {
 

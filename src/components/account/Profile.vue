@@ -1,6 +1,6 @@
 <template>
     <div class="profile-container">
-        <img class="banner" src="../../assets/img/profile/banner.png" alt="" />
+        <img class="banner" :src="profile.backImageUrl" alt="" />
         <div class="content">
             <p class="avatar-wrapper">
                 <img class="avatar" :src="profile.avatar" alt="" />
@@ -45,6 +45,7 @@ export default {
         return {
             profile: {
                 avatar: require('../../assets/img/profile/avatar.png'),
+                backImageUrl: '', // require('../../assets/img/profile/banner.png'),
             },
             isEdit: false,
             isMine: false
@@ -110,6 +111,11 @@ export default {
         .avatar-wrapper {
             position: relative;
             top: -50px;
+
+            /deep/ .el-button--text {
+                color: #fff;
+                font-size: 14px;
+            }
         }
 
         .avatar {

@@ -96,7 +96,7 @@ export default {
 <style lang="less" scoped>
 .search-container {
     width: 100%;
-    height: 329px;
+    height: 390px;
     color: #fff;
     background-image: url('../../assets/img/banner-back.png');
     background-position: center;
@@ -110,7 +110,7 @@ export default {
         width: 100%;
         position: absolute;
         top: 0;
-        height: 329px;
+        height: 390px;
     }
 
     .content {
@@ -118,7 +118,7 @@ export default {
         top: 0;
         left: auto;
         width: fit-content;
-        height: 329px;
+        height: 390px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -177,7 +177,7 @@ export default {
 }
 .search-container:before {
     // min-height: var(--header-height);
-    height: 329px;
+    height: 390px;
     content: '';
     position: absolute;
     top: 0;
