@@ -4,7 +4,7 @@
         <el-input
             class="intro"
             placeholder="Please input"
-            v-model="textarea">
+            v-model="profile.nickname">
         </el-input>
     </div>
 </template>
@@ -17,9 +17,8 @@ export default {
     data() {
         return {
             profile: {
-                avatar: require('../../assets/img/profile/avatar.png'),
+                nickname: '',
             },
-            textarea:''
         };
     },
     computed: {

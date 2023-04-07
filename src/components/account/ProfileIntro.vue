@@ -8,7 +8,7 @@
             :maxRows="2"
             resize="none"
             placeholder="Please input"
-            v-model="textarea">
+            v-model="profile.introduce">
         </el-input>
     </div>
 </template>
@@ -21,9 +21,8 @@ export default {
     data() {
         return {
             profile: {
-                avatar: require('../../assets/img/profile/avatar.png'),
+                introduce: '这个人很懒，什么都没有留下' ,
             },
-            textarea:''
         };
     },
     computed: {

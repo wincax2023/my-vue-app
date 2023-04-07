@@ -21,7 +21,7 @@
                 <el-button v-if="!isMine" type="primary" class="button" @click="mark">关注</el-button>
             </p>
             
-            <el-button v-if="!isEdit && isMine" type="text" class="button" @click="introduce">介绍自己</el-button>
+            <el-button v-if="!isEdit && isMine" type="text" class="button" @click="introduce">{{profile.introduce}}</el-button>
             <ProfileEdit v-if="isEdit" @cancel="cancelEdit" />
             <p v-else class="data-wrapper">
                 <span class="data">提示 : 0</span>
@@ -74,6 +74,7 @@ export default {
 
         introduce() {
             console.log('introduce');
+            this.isEdit = !this.isEdit;
         },
         edit() {
             console.log('edit');

@@ -2,7 +2,7 @@
     <div class="profile-banner-container">
         <p>图片的纵横比必须为 2:1，宽度至少为 800 像素</p>
         <p class="banner" @click="upload">
-            <img :src="profile.banner" alt="" />
+            <img :src="profile.backImageUrl" alt="" />
             <i class="el-icon-camera-solid"></i>
         </p>
     </div>
@@ -16,7 +16,7 @@ export default {
     data() {
         return {
             profile: {
-                banner: require('../../assets/img/profile/banner.png'),}
+                backImageUrl: require('../../assets/img/profile/banner.png'),}
         };
     },
     computed: {
