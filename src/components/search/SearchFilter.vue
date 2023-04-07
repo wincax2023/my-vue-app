@@ -32,10 +32,21 @@ export default {
     computed: {
         // ...mapState("app", ["curTab", "clientHeight"]),
     },
-    watch: {},
+    watch: {
+        $route (to, from){
+            if (to === from) return
+            const sort = sortByMap[to.query.sortBy] || '关联'
+            this.checkboxGroup[1] = [sort]
+            const model = modelMap[to.query.model] || '全部'
+            this.checkboxGroup[2] = [model]
+            const tags = to.query.tags || '全部'
+            this.checkboxGroup[3] = [tags]
+        }
+    },
     created() {},
     destroyed() {},
     mounted() {
+        console.warn('search filter ', this.$route.query);
         const sort = sortByMap[this.$route.query.sortBy] || '关联'
         this.checkboxGroup[1] = [sort]
         const model = modelMap[this.$route.query.model] || '全部'

@@ -23,7 +23,12 @@ export default {
     computed: {
         // ...mapState("app", ["curTab", "clientHeight"]),
     },
-    watch: {},
+    watch: {
+        $route (to, from){
+            if (to === from) return
+            this.searchQuery = to.query.searchQuery || ''
+        }
+    },
     created() {},
     destroyed() {},
     mounted() {

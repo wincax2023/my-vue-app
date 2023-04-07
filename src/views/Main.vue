@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <!-- <Header /> -->
-        <Search />
+        <Search @search="onSearch"/>
         <!-- <audio controls>
                 <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
         </audio> -->
@@ -41,6 +41,11 @@ export default {
     },
     methods: {
         ...mapActions('app', ['setMenuIndex']),
+
+        onSearch(data) {
+            const { searchQuery, model } = data;
+            this.$router.push(`/marketplace?searchQuery=${searchQuery}&sortBy=relevance&model=${model}&tags=all`);
+        }
 
         
     },

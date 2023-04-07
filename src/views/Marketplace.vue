@@ -1,6 +1,6 @@
 <template>
     <div class="marketplace-section">
-        <Search />
+        <Search @search="onSearch" />
         <div class="content-wrapper">
             <SearchFilter @onSelect="onSelect" />
             <SearchReault />
@@ -18,7 +18,10 @@ export default {
     components: { Search, SearchFilter , SearchReault},
     data() {
         return {
-            search: ''
+            search: '',
+            model: 'all',
+            sort: 'relevance',
+            tags: 'all',
         };
     },
     computed: {
@@ -35,11 +38,17 @@ export default {
 
         onSelect(checkboxGroup) {
             console.log('onSelect', checkboxGroup)
-            const sort = sortByMap[checkboxGroup[1]] || 'relevance'
-            const model = modelMap[checkboxGroup[2]] || 'all'
-            const tags = checkboxGroup[3]
+            this.sort = sortByMap[checkboxGroup[1]] || 'relevance'
+            this.model = modelMap[checkboxGroup[2]] || 'all'
+            this.tags = checkboxGroup[3] || 'all'
             // /marketplace?searchQuery=demo&sortBy=relevance&model=all&tags=3d
-            this.$router.push(`/marketplace?searchQuery=${this.search}&sortBy=${sort}&model=${model}&tags=${tags}`);
+            this.$router.push(`/marketplace?searchQuery=${this.search}&sortBy=${this.sort}&model=${this.model}&tags=${this.tags}`);
+        },
+        onSearch(data) {
+            const { searchQuery, model } = data;
+            this.search = searchQuery
+            this.model = model
+            this.$router.push(`/marketplace?searchQuery=${this.search}&sortBy=${this.sort}&model=${this.model}&tags=${this.tags}`);
         }
     },
 };

@@ -19,23 +19,23 @@
                     <el-input v-model.number="ruleForm.search" placeholder="Search AI images"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button @click="onSearch">Search</el-button>
+                    <el-button @click="onSearch('all')">Search</el-button>
                 </el-form-item>
                 
             </el-form>
             <div class="trending-searches">
                 <span class="d-lg-inline-block d-none">Search by model</span>
 
-                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=stable-diffusion`">
+                <a class="model-selection-button mx-1 " @click="onSearch('stable-diffusion')" >
                     <i class="el-icon-search"></i> Stable Diffusion
                 </a>      
-                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=midjourney`">
+                <a class="model-selection-button mx-1 " @click="onSearch('midjourney')" >
                     <i class="el-icon-search"></i> Midjourney
                 </a>      
-                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=dall-e`">
+                <a class="model-selection-button mx-1 " @click="onSearch('dall-e')" >
                     <i class="el-icon-search"></i> DALL-E
                 </a>      
-                <a class="model-selection-button mx-1 " :href="`/marketplace?searchQuery=${ruleForm.search}&model=chatgpt`">
+                <a class="model-selection-button mx-1 " @click="onSearch('gpt')" >
                     <i class="el-icon-search"></i> ChatGPT
                 </a>  
             </div>
@@ -77,11 +77,12 @@ export default {
     methods: {
         ...mapActions('app', ['setMenuIndex']),
 
-        onSearch() {
+        onSearch(model) {
             this.$refs['ruleForm'].validate(valid => {
                 if (valid) {
                     // /marketplace?searchQuery=demo&sortBy=score&time=all&model=midjourney
-                    this.$router.push(`/marketplace?searchQuery=${this.ruleForm.search}`);
+                    // this.$router.push(`/marketplace?searchQuery=${this.ruleForm.search}&model=${model}`);
+                    this.$emit('search', {searchQuery: this.ruleForm.search, model: model})
                     
                 } else {
                     console.log('error submit!!');
